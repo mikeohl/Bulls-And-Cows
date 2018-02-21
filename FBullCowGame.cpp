@@ -3,38 +3,39 @@
 using int32 = int;
 
 // Simple Hidden Word. TODO: Add list of words to pick from at random
-const FString HIDDEN_WORD = "alaba";
+const FString HIDDEN_WORD = "planet";
 
 // Constructor
 FBullCowGame::FBullCowGame() : CurrentAttempt(1), MaxGuesses(5) {}
 
-void FBullCowGame::Reset()
-{
-	CurrentAttempt = 1;
-	HiddenWord = HIDDEN_WORD;
-	// plus more?
+// Get the maximum number of attempts the player has to guess the word
+int32 FBullCowGame::GetMaxAttempts() const { return MaxGuesses; }
 
-	return;
-}
+// Get the number of the current attempt of the player 
+int32 FBullCowGame::GetCurrentAttempt() const { return CurrentAttempt; }
 
-int32 FBullCowGame::GetMaxAttempts() const
-{
-	return MaxGuesses;
-}
+// Get length of hidden word
+int32 FBullCowGame::WordLength() const { return HIDDEN_WORD.length(); }
 
-int32 FBullCowGame::GetCurrentAttempt() const
-{
-	return CurrentAttempt;
-}
+// Get if the player has won the game
+bool FBullCowGame::IsGameWon() const { return bGameIsWon; }
 
 // Advance current attempt if Guess is valid
-bool FBullCowGame::CheckGuess(FString Word)
+EGuessValidity FBullCowGame::CheckGuess(FString Guess) const
 {
-	if (true) { // TODO: Implement Logic
-		CurrentAttempt++;
-		return true;
+	if (Guess.length() != WordLength()) { // TODO: Implement Logic
+		return EGuessValidity::Wrong_Length;
 	}
-	return false;
+
+	if (false) {
+		return EGuessValidity::Not_Lowercase;
+	}
+
+	if (false) {
+		return EGuessValidity::Not_Isogram;
+	}
+
+	return EGuessValidity::OK;
 }
 
 // Counts bulls & cows in 'valid' Guess
@@ -59,10 +60,25 @@ FBullsAndCows FBullCowGame::ScoreGuess(FString Guess)
 		}
 	}
 
+	// Update attempt and score
+	CurrentAttempt++;
+	if (BullCowCount.Bulls == WordLength()) {
+		bGameIsWon = true;
+	}
+
 	return BullCowCount;
 }
 
-void FBullCowGame::PrintResultOfGuess()
+//void FBullCowGame::PrintResultOfGuess()
+//{
+//	return;
+//}
+
+
+void FBullCowGame::Reset()
 {
+	bGameIsWon = false;
+	CurrentAttempt = 1;
+	HiddenWord = HIDDEN_WORD;
 	return;
 }
