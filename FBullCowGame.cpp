@@ -1,6 +1,7 @@
 /* Bull Cow Class implementation. 
  * Can check to see if guess is valid, score guess,
  * set new game, plus getter & helper functions 
+
  */
 
 #pragma once

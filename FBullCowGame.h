@@ -1,3 +1,7 @@
+/* Bull Cow Game Class Definition. Class is used 
+ * to implement game instance and keep game state 
+ */
+
 #pragma once
 #include <string>
 
@@ -13,19 +17,14 @@ enum class EGuessValidity
 	Not_Lowercase
 };
 
-//enum class EResetStatus 
-//{
-//	No_Hidden_Word,
-//	OK
-//};
-
+// Score Type
 struct FBullsAndCows
 {
 	int32 Bulls = 0;
 	int32 Cows = 0;
 };
 
-
+// Game class
 class FBullCowGame
 {
 public:
@@ -34,18 +33,18 @@ public:
 	int32 GetMaxAttempts() const;
 	int32 GetCurrentAttempt() const;
 	int32 WordLength() const;
-	bool IsGameWon() const;
 	EGuessValidity CheckGuess(FString Guess) const;
-
 	FBullsAndCows ScoreGuess(FString Guess);
-	void Reset();
-
-	//void PrintResultOfGuess();
-
+	bool IsGameWon() const;
+	void NewGame();
 
 private:
 	FString HiddenWord;
-	int32 MaxGuesses;
+	int32 MaxAttempts;
 	int32 CurrentAttempt;
 	bool bGameIsWon;
+
+	bool IsIsogram(FString Word) const;
+	bool IsIsogram_v2(FString Word) const;
+	bool IsLowerCase(FString Word) const;
 };
